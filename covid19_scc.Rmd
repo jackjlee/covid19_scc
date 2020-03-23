@@ -1,0 +1,67 @@
+---
+title: "COVID-19 in Santa Clara County, CA"
+output:
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+By [Jack J. Lee](https://www.jackjleescience.com)
+
+**Data**
+
+* Data gathered from [tweets](https://twitter.com/HealthySCC) and [press releases](https://www.sccgov.org/sites/phd/news/Pages/newsroom.aspx) by Santa Clara County Public Health
+* Last updated using data from March 22, 2020
+* R code and data available on [GitHub](https://github.com/jackjlee/covid19_scc)
+
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(plotly)
+
+# read in data
+scc <-  read_csv("covid19_scc.csv")
+scc$date <- as.Date(scc$date, format = "%Y-%m-%d")
+
+```
+
+### Confirmed Cases
+```{r}
+scc_total_chart <- ggplot(scc, aes(x = date,
+                                   y = infected_total,
+                                   text = paste0("<b>Date: </b>", format(date, format = "%b %d"), "<br>",
+                                                 "<b>Total cases: </b>", infected_total, "<br>",
+                                                 "<b>Additional cases today: </b>", infected_diff),
+                                   group = 1)) +
+  xlab("") +
+  ylab("Confirmed cases") +
+  theme_minimal(base_size = 14) +
+  geom_point(color = "blue") +
+  geom_line(color = "blue")
+
+ggplotly(scc_total_chart, tooltip = "text") %>%
+  config(displayModeBar = FALSE)  %>%
+  layout(hoverlabel = list(align = "left"))
+```
+
+### Deaths
+```{r}
+scc_death_chart <- ggplot(scc, aes(x = date,
+                                   y = death_total)) +
+  xlab("") +
+  ylab("Deaths") +
+  theme_minimal(base_size = 14) +
+  geom_point(data = filter(scc, !is.na(note)),
+             aes(text = paste0("<b>Date: </b>", format(date, format = "%b %d"), "<br>",
+                               "<b>Total deaths: </b>", death_total, "<br>",
+                               "<b>Additional deaths today: </b>", death_diff, "<br>",
+                               "<b>Details: </b><br>  ", note),
+                 group = 1),
+             color = "gray50") +
+  geom_line(color = "gray50")
+
+ggplotly(scc_death_chart, tooltip = "text") %>%
+  config(displayModeBar = FALSE) %>%
+  layout(hoverlabel = list(align = "left"))
+```
