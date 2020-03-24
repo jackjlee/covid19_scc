@@ -52,7 +52,7 @@ scc_death_chart <- ggplot(scc, aes(x = date,
   xlab("") +
   ylab("Deaths") +
   theme_minimal(base_size = 14) +
-  geom_point(data = filter(scc, !is.na(note)),
+  geom_point(data = filter(scc, death_diff > 0),
              aes(text = paste0("<b>Date: </b>", format(date, format = "%b %d"), "<br>",
                                "<b>Total deaths: </b>", death_total, "<br>",
                                "<b>Additional deaths today: </b>", death_diff, "<br>",
