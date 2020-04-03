@@ -6,4 +6,4 @@
 
 * Data collected from [tweets](https://twitter.com/HealthySCC) and [press releases](https://www.sccgov.org/sites/phd/news/Pages/newsroom.aspx) by the Santa Clara County Public Health Department
 
-* Data last updated on  April 01, 2020
+* Data last updated on  April 02, 2020
