@@ -11,7 +11,7 @@ By [Jack J. Lee](https://www.jackjleescience.com)
 **Data**
 
 * Data gathered from [tweets](https://twitter.com/HealthySCC) and [press releases](https://www.sccgov.org/sites/phd/news/Pages/newsroom.aspx) by Santa Clara County Public Health
-* Last updated using data from May 14, 2020
+* Last updated using data from May 15, 2020
 * R code and data available on [GitHub](https://github.com/jackjlee/covid19_scc)
 
 
